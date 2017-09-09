@@ -14,7 +14,7 @@ export default class ProductList extends Component {
 		return (
 			<div style={style}>
 				<h2 style={{textAlign: 'center'}}>Choose your food</h2>
-				{this.props.products.map(product => <Product key={product.id} product={product} productActions={this.props.productActions} nutritionActions={this.props.nutritionActions} />)}
+				{this.props.products.filter(product => !product.fetched || (!product.chosen && product.type === 'custom')).map(product => <Product key={product.id} product={product} productActions={this.props.productActions} nutritionActions={this.props.nutritionActions} />)}
 			</div>
 		);
 	}

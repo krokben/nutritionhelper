@@ -140,7 +140,32 @@ class Product extends Component {
 		});
 	};
 
+	selectCustomProduct = () => {
+		this.props.productActions.chooseProduct({id: this.props.product.id, fetched: this.props.product.fetched});
+		this.props.nutritionActions.addNutrients(this.props.product.fetched, this.props.product.amount / 100);
+	};
+
 	render() {
+		const color = {
+			custom: '#333'
+		};
+
+		const styles = {
+			base: {
+				color: color[this.props.product.type],
+				':hover': {
+					backgroundColor: '#999'
+				}
+			},
+			input: {
+				width: '40px'
+			},
+			addButton: {
+				float: 'right',
+				cursor: 'pointer'
+			}
+		};
+
 		return (
 			<div style={styles.base}>
 				<label>{this.props.product.name}</label>
@@ -150,20 +175,5 @@ class Product extends Component {
 		);
 	}
 }
-
-const styles = {
-	base: {
-		':hover': {
-			backgroundColor: '#999'
-		}
-	},
-	input: {
-		width: '40px'
-	},
-	addButton: {
-		float: 'right',
-		cursor: 'pointer'
-	}
-};
 
 export default Radium(Product);
