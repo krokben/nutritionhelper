@@ -7,6 +7,6 @@ const finalCreateStore = compose(
 	applyMiddleware(thunk, createLogger())
 )(createStore);
 
-export default function configureStore(initialState = {products: [], nutrition: {}, rdi: {}}) {
+export default function configureStore(initialState = {products: [], nutrients: {}, rdi: {}}) {
 	return finalCreateStore(rootReducer, initialState);
 }

@@ -3,18 +3,18 @@ import Radium from 'radium';
 import ProductInList from './ProductInList';
 
 class NutritionList extends Radium(Component) {
-	calculateNutrition(key, amount) {
-		if (key === 'kcal') {
+	calculateNutrition(type, amount) {
+		if (type === 'kcal') {
 			return amount.toFixed(0);
 		} else {
-			return ((amount / this.props.rdi[key]) * 100).toFixed(1);
+			return ((amount / this.props.rdi[type]) * 100).toFixed(1);
 		}
 	}
 
 	removeProduct = (product) => {
 		this.props.productActions.removeProduct(product.id);
-		this.props.nutritionActions.removeNutrients(product);
-		this.props.nutritionActions.recalculateNutrients(this.props.products);
+		this.props.nutrientActions.removeNutrients(product);
+		this.props.nutrientActions.recalculateNutrients(this.props.products);
 	};
 
 	render() {
@@ -58,11 +58,19 @@ class NutritionList extends Radium(Component) {
 					</thead>
 					<tbody>
 						{
-							Object.keys(this.props.nutrition).map((key, i) => {
+							// Object.keys(this.props.nutrients).map((key, i) => {
+							// 	return (
+							// 		<tr key={`nutrient-${i}`}>
+							// 			<td style={{textAlign: 'left'}}>{key}</td>
+							// 			<td>{this.calculateNutrition(key, this.props.nutrients[key])}</td>
+							// 		</tr>
+							// 	);
+							// })
+							this.props.nutrients.map((nutrient, i) => {
 								return (
-									<tr key={`nutrition-${i}`}>
-										<td style={{textAlign: 'left'}}>{key}</td>
-										<td>{this.calculateNutrition(key, this.props.nutrition[key])}</td>
+									<tr key={`nutrient-${i}`}>
+										<td style={{textAlign: 'left'}}>{nutrient.type}</td>
+										<td>{this.calculateNutrition(nutrient.type, nutrient.total)}</td>
 									</tr>
 								);
 							})

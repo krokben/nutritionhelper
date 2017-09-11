@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import productReducer from './productReducer';
-import nutritionReducer from './nutritionReducer';
+import nutrientReducer from './nutrientReducer';
 import rdiReducer from './rdiReducer';
 
 const rootReducer = combineReducers({
 	products: productReducer,
-	nutrition: nutritionReducer,
+	nutrients: nutrientReducer,
 	rdi: rdiReducer
 });
 

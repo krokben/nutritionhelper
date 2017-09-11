@@ -1,4 +1,4 @@
-const nutritionctions = {
+const nutrientActions = {
 	addNutrients(payload, amount) {
 		return {
 			type: 'ADD_NUTRIENTS',
@@ -20,4 +20,4 @@ const nutritionctions = {
 	}
 }
 
-export default nutritionctions;
+export default nutrientActions;

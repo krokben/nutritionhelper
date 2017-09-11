@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import productActions from './actions/productActions';
-import nutritionActions from './actions/nutritionActions';
+import nutrientActions from './actions/nutrientActions';
 import ProductList from './components/ProductList';
 import NutritionList from './components/NutritionList';
 
@@ -16,8 +16,8 @@ class App extends Component {
 
 		return (
 			<div style={container}>
-				<ProductList products={this.props.products} productActions={this.props.productActions} nutritionActions={this.props.nutritionActions} />
-				<NutritionList nutrition={this.props.nutrition} rdi={this.props.rdi} products={this.props.products} productActions={this.props.productActions} nutritionActions={this.props.nutritionActions} />
+				<ProductList products={this.props.products} productActions={this.props.productActions} nutrientActions={this.props.nutrientActions} />
+				<NutritionList nutrients={this.props.nutrients} rdi={this.props.rdi} products={this.props.products} productActions={this.props.productActions} nutrientActions={this.props.nutrientActions} />
 			</div>
 		);
 	}
@@ -30,7 +30,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 	return {
 		productActions: bindActionCreators(productActions, dispatch),
-		nutritionActions: bindActionCreators(nutritionActions, dispatch)
+		nutrientActions: bindActionCreators(nutrientActions, dispatch)
 	};
 }
 
