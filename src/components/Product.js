@@ -162,6 +162,8 @@ class Product extends Component {
 		.then((result) => {
 			this.props.productActions.chooseProduct({id: this.props.product.id, fetched: result});
 			this.props.nutrientActions.addNutrients(result.nutrients, this.props.product.amount / 100);
+			this.props.localActions.addLocal(this.props.product.id);
+			this.props.localActions.setLocalStorage();
 		});
 	};
 
@@ -178,12 +180,20 @@ class Product extends Component {
 		const styles = {
 			base: {
 				color: color[this.props.product.type],
+				marginBottom: '5px',
 				':hover': {
 					backgroundColor: '#999'
 				}
 			},
+			label: {
+				cursor: 'pointer'
+			},
 			input: {
-				width: '40px'
+				backgroundColor: '#2C3E50',
+				border: 'none',
+				color: '#fff',
+				textAlign: 'right',
+				fontSize: '1rem'
 			},
 			addButton: {
 				float: 'right',
@@ -193,9 +203,8 @@ class Product extends Component {
 
 		return (
 			<div style={styles.base}>
-				<label>{this.props.product.name}</label>
+				<label style={styles.label} onClick={this.props.product.type === 'custom' ? this.selectCustomProduct : this.selectProduct}>{this.props.product.name}</label>
 				<input style={styles.input} type="number" defaultValue={this.props.product.amount} onChange={this.handleChange} ref={input => this.amountInput = input} />g
-				<button style={styles.addButton} onClick={this.props.product.type === 'custom' ? this.selectCustomProduct : this.selectProduct}>Add me!</button>
 			</div>
 		);
 	}

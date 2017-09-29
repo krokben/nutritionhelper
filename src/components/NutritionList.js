@@ -11,16 +11,34 @@ class NutritionList extends Radium(Component) {
 		}
 	}
 
+	calculateCost = (cost, amount) => {
+		return (cost * (amount / 100)).toFixed(2);
+	};
+
+	calculateCostPerKcal = (cost, kcal) => {
+		return (cost / kcal).toFixed(4);
+	};
+
+	calculateTotalCost = () => {
+		let total = 0;
+		this.props.products
+			.filter(product => product.chosen)
+			.forEach(product => total += product.cost * (product.amount / 100));
+		return total.toFixed(2);
+	};
+
 	removeProduct = (product) => {
 		this.props.productActions.removeProduct(product.id);
 		this.props.nutrientActions.removeNutrients(product);
 		this.props.nutrientActions.recalculateNutrients(this.props.products);
+		this.props.localActions.removeLocal(product.id);
+		this.props.localActions.setLocalStorage();
 	};
 
 	render() {
 		const styles = {
 			base: {
-				backgroundColor: '#fff',
+				backgroundColor: '#2C3E50',
 				width: '400px',
 				boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
 				textAlign: 'center',
@@ -29,7 +47,8 @@ class NutritionList extends Radium(Component) {
 			},
 			productContainer: {
 				display: 'flex',
-				textAlign: 'left'
+				textAlign: 'left',
+				fontSize: '12px'
 			}
 		};
 
@@ -43,12 +62,15 @@ class NutritionList extends Radium(Component) {
 								<ProductInList
 									product={product}
 								/>
-								&nbsp;
+								g&nbsp;
 								<button onClick={() => this.removeProduct(product)}>Remove</button>
+								<div>{this.calculateCost(product.cost, product.amount)} kr&nbsp;</div>
+								<div style={{color: 'red'}}>{this.calculateCostPerKcal(product.cost, product.fetched.nutrients[0].value)} kr/kcal</div>
 							</div>
 						);
 					})
 				}
+				<h3>Total cost: {this.calculateTotalCost()} kr</h3>
 				<table style={{width: '100%'}}>
 					<thead>
 						<tr>
